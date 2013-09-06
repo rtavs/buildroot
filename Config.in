@@ -461,3 +461,5 @@ source "boot/Config.in"
 source "package/Config.in.host"
 
 source "Config.in.legacy"
+
+source "board/jetlab/common/package/Config.in"
