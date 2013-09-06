@@ -1,0 +1,4 @@
+config BR2_PACKAGE_JETV4L2
+	bool "jetv4l2"
+	help
+	  Jetlab v4l2 utils.

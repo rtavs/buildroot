@@ -1,3 +1,5 @@
 menu "Jetlab packages"
 
+source board/jetlab/common/package/jetv4l2/Config.in
+
 endmenu
