@@ -2,4 +2,6 @@ menu "Jetlab packages"
 
 source board/jetlab/common/package/jetv4l2/Config.in
 
+source board/jetlab/common/package/tiobench/Config.in
+
 endmenu
