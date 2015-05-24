@@ -1,0 +1,24 @@
+config BR2_PACKAGE_TOYBOX
+	bool "Toybox"
+	depends on BR2_LARGEFILE && BR2_USE_WCHAR
+	help
+	  Toybox combines common Linux command line utilities together into
+	  a single executable that's simple, small, fast, and reasonably
+	  standards compliant.
+
+	  It was started by an ex-maintainer of BusyBox, and uses the same
+	  "multicall binary configured at build time via menuconfig" approach,
+	  but is a fresh implementation that uses no busybox code.
+
+	  Toybox is licensed under a "zero clause" BSD variant which grants
+	  the same blanket permissions but removes the requirement to copy
+	  specific license text into derivative works, essentially placing
+	  its code into the public domain.
+
+config BR2_PACKAGE_TOYBOX_CONFIG
+	string "Toybox configuration file:"
+	default "package/toybox/toybox.config"
+	depends on BR2_PACKAGE_TOYBOX
+	help
+	  Specify an alternative config file location enabling a different
+	  set of commands in toybox. The default file equals "make defconfig".
