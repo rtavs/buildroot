@@ -8,4 +8,4 @@ TARGET_DIR=$1
 BOARD_DIR=board/kulabs/timebox
 
 # Generate a file identifying the build (git commit and build date)
-echo $(git describe) $(date +%Y-%M-%d-%H:%m:%S) > $TARGET_DIR/etc/build-id
+echo $(git describe) $(date +%Y-%m-%d-%H:%M:%S) > $TARGET_DIR/etc/build-id
