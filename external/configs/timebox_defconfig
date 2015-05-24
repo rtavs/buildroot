@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Buildroot 2015.02-00008-g46aed4a Configuration
+# Buildroot 2015.02-00017-geac87e3 Configuration
 #
 BR2_HAVE_DOT_CONFIG=y
 BR2_HOSTARCH_NEEDS_IA32_LIBS=y
@@ -196,6 +196,7 @@ BR2_INIT_BUSYBOX=y
 #
 # systemd needs an (e)glibc toolchain, headers >= 3.7
 #
+# BR2_INIT_TOYBOX is not set
 # BR2_INIT_NONE is not set
 # BR2_ROOTFS_DEVICE_CREATION_STATIC is not set
 # BR2_ROOTFS_DEVICE_CREATION_DYNAMIC_DEVTMPFS is not set
@@ -1725,3 +1726,8 @@ BR2_LINUX_KERNEL_CUSTOM_GIT_VERSION=""
 #
 # User-provided options
 #
+
+#
+# External packages
+#
+# BR2_PACKAGE_TOYBOX is not set
