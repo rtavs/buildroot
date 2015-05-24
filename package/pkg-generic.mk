@@ -236,7 +236,7 @@ $(BUILD_DIR)/%/.stamp_target_installed:
 	+$($(PKG)_INSTALL_TARGET_CMDS)
 	$(if $(BR2_INIT_SYSTEMD),\
 		$($(PKG)_INSTALL_INIT_SYSTEMD))
-	$(if $(BR2_INIT_SYSV)$(BR2_INIT_BUSYBOX),\
+	$(if $(BR2_INIT_SYSV)$(BR2_INIT_BUSYBOX)$(BR2_INIT_TOYBOX),\
 		$($(PKG)_INSTALL_INIT_SYSV))
 	$(foreach hook,$($(PKG)_POST_INSTALL_TARGET_HOOKS),$(call $(hook))$(sep))
 	$(Q)if test -n "$($(PKG)_CONFIG_SCRIPTS)" ; then \

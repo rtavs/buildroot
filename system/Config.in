@@ -103,6 +103,10 @@ comment 'systemd needs an (e)glibc toolchain, headers >= 3.7'
 	depends on !(BR2_TOOLCHAIN_USES_GLIBC \
 		&& BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_7)
 
+config BR2_INIT_TOYBOX
+	bool "ToyBox"
+	select BR2_PACKAGE_TOYBOX
+
 config BR2_INIT_NONE
 	bool "None"
 
@@ -120,7 +124,6 @@ config BR2_ROOTFS_DEVICE_CREATION_DYNAMIC_DEVTMPFS
 
 config BR2_ROOTFS_DEVICE_CREATION_DYNAMIC_MDEV
 	bool "Dynamic using mdev"
-	select BR2_PACKAGE_BUSYBOX
 
 config BR2_ROOTFS_DEVICE_CREATION_DYNAMIC_EUDEV
 	bool "Dynamic using eudev"
