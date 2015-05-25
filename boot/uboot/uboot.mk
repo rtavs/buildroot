@@ -101,8 +101,6 @@ define UBOOT_CONFIGURE_CMDS
 	@echo "/* Add a wrapper around the values Buildroot sets. */" >> $(@D)/include/config.h
 	@echo "#ifndef __BR2_ADDED_CONFIG_H" >> $(@D)/include/config.h
 	@echo "#define __BR2_ADDED_CONFIG_H" >> $(@D)/include/config.h
-	$(call insert_define,DATE,$(DATE))
-	$(call insert_define,CONFIG_LOAD_SCRIPTS,1)
 	$(call insert_define,CONFIG_IPADDR,$(BR2_TARGET_UBOOT_IPADDR))
 	$(call insert_define,CONFIG_GATEWAYIP,$(BR2_TARGET_UBOOT_GATEWAY))
 	$(call insert_define,CONFIG_NETMASK,$(BR2_TARGET_UBOOT_NETMASK))
