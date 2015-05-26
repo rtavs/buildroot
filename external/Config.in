@@ -3,6 +3,8 @@ menu "External packages"
 
 source "$BR2_EXTERNAL/package/foo/Config.in"
 
+if BR2_PACKAGE_BUSYBOX_SHOW_OTHERS
 source "$BR2_EXTERNAL/package/toybox/Config.in"
+endif
 
 endmenu
