@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Buildroot 2015.02-00021-gf1d59c2-dirty Configuration
+# Buildroot 2015.02-00024-g4936a21 Configuration
 #
 BR2_HAVE_DOT_CONFIG=y
 BR2_HOSTARCH_NEEDS_IA32_LIBS=y
@@ -1496,7 +1496,8 @@ BR2_TARGET_UBOOT_CUSTOM_PATCH_DIR=""
 BR2_TARGET_UBOOT_FORMAT_CUSTOM=y
 BR2_TARGET_UBOOT_FORMAT_CUSTOM_NAME="u-boot-with-spl.bin"
 # BR2_TARGET_UBOOT_NETWORK is not set
-# BR2_TARGET_UBOOT_SPL is not set
+BR2_TARGET_UBOOT_SPL=y
+BR2_TARGET_UBOOT_SPL_NAME="firmware/firmware.bin"
 # BR2_TARGET_UBOOT_ENVIMAGE is not set
 # BR2_TARGET_XLOADER is not set
 
