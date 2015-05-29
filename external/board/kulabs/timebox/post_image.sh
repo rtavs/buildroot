@@ -14,6 +14,8 @@ cd $1
 # build android style boot.img ?
 # /path/to/mkbootimg
 
+mkbootimg --kernel ./uImage --ramdisk ./rootfs.cpio --second ./timebox.dtb --output ./boot.img
+ls -l ./boot.img
 
 # pack all imgage into kulabs format
 # /path/to/pack -c /path/to/image.conf -o /path/to/kulab_boardname.img
