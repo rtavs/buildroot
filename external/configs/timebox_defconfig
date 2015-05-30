@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Buildroot 2015.02-00027-gf875e55 Configuration
+# Buildroot 2015.02-00028-g6966aca-dirty Configuration
 #
 BR2_HAVE_DOT_CONFIG=y
 BR2_HOSTARCH_NEEDS_IA32_LIBS=y
@@ -190,13 +190,13 @@ BR2_TARGET_GENERIC_PASSWD_MD5=y
 # BR2_TARGET_GENERIC_PASSWD_SHA256 is not set
 # BR2_TARGET_GENERIC_PASSWD_SHA512 is not set
 BR2_TARGET_GENERIC_PASSWD_METHOD="md5"
-BR2_INIT_BUSYBOX=y
+# BR2_INIT_BUSYBOX is not set
 # BR2_INIT_SYSV is not set
 
 #
 # systemd needs an (e)glibc toolchain, headers >= 3.7
 #
-# BR2_INIT_TOYBOX is not set
+BR2_INIT_TOYBOX=y
 # BR2_INIT_NONE is not set
 # BR2_ROOTFS_DEVICE_CREATION_STATIC is not set
 # BR2_ROOTFS_DEVICE_CREATION_DYNAMIC_DEVTMPFS is not set
@@ -1723,4 +1723,5 @@ BR2_LINUX_KERNEL_CUSTOM_GIT_VERSION=""
 #
 # External packages
 #
-# BR2_PACKAGE_TOYBOX is not set
+BR2_PACKAGE_TOYBOX=y
+BR2_PACKAGE_TOYBOX_CONFIG="$(BR2_EXTERNAL)/package/toybox/toybox.config"
