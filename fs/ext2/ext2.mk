@@ -43,4 +43,20 @@ endef
 ROOTFS_EXT2_POST_GEN_HOOKS += ROOTFS_EXT2_SYMLINK
 endif
 
+# If SIZE is AUTO, which mean shrink the filesystem to the minimum size.
+# Suppose 2G is big enough for buildroot ext filesystem, we then shrink
+# it after rootfs img packed.
+ifeq ($(ROOTFS_EXT2_SIZE),AUTO)
+ROOTFS_EXT2_SIZE = 2G
+define ROOTFS_EXT2_SHRINK
+	$(HOST_DIR)/sbin/resize2fs -M $(BINARIES_DIR)/rootfs.ext2
+	$(HOST_DIR)/sbin/e2fsck -fy $(BINARIES_DIR)/rootfs.ext2
+	$(HOST_DIR)/sbin/tune2fs -m $(BR2_TARGET_ROOTFS_EXT2_RESBLKS) $(BINARIES_DIR)/rootfs.ext2
+	$(HOST_DIR)/sbin/resize2fs -M $(BINARIES_DIR)/rootfs.ext2
+endef
+
+ROOTFS_EXT2_POST_GEN_HOOKS += ROOTFS_EXT2_SHRINK
+
+endif
+
 $(eval $(rootfs))
