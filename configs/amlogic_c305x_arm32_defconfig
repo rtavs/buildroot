@@ -1,2 +1,3 @@
 #include "c305x_arm32.config"
 #include "linaro_arm32.config"
+#include "base.config"
