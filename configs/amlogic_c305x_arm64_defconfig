@@ -1,3 +1,6 @@
 #include "c305x_arm64.config"
 #include "linaro_arm64.config"
 #include "base.config"
+
+#include "debug.config"
+#include "gdb.config"
