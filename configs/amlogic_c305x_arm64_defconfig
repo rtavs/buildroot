@@ -3,6 +3,8 @@
 #include "base.config"
 #include "debug.config"
 #include "gdb.config"
+#include "gst.config"
+#include "gst_rtsp.config"
 BR2_PACKAGE_FFMPEG=y
 BR2_PACKAGE_FFMPEG_ENCODERS="mp2 adpcm_g726 pcm_alaw pcm_mulaw rawvideo mjpeg mpeg2video"
 BR2_PACKAGE_FFMPEG_DECODERS="pcm_alaw pcm_mulaw rawvideo mjpeg mpeg2video"
