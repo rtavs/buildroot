@@ -1,3 +1,4 @@
-#include "c305x_arm32.config"
+#include "arm32_a35.config"
 #include "arm32_glibc.config"
 #include "base.config"
+BR2_PACKAGE_C305X=y

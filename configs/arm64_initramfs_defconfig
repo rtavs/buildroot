@@ -1,4 +1,4 @@
-#include "c305x_arm64.config"
+#include "arm64_a35.config"
 #include "arm64_musl.config"
 #include "base.config"
 #include "debug.config"
