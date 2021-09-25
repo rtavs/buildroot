@@ -1,0 +1,4 @@
+#include "c305x_arm64.config"
+#include "toolchain_musl_arm64.config"
+#include "system.config"
+#include "debug.config"

@@ -1,5 +1,0 @@
-#include "arm32_a35.config"
-#include "arm32_glibc.config"
-#include "base.config"
-BR2_PACKAGE_C305X=y
-BR2_ROOTFS_RESIZE=y

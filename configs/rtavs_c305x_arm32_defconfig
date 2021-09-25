@@ -1,0 +1,4 @@
+#include "c305x_arm32.config"
+#include "toolchain_glibc_arm32.config"
+#include "system.config"
+BR2_ROOTFS_RESIZE=y
