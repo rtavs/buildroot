@@ -577,6 +577,10 @@ config BR2_ROOTFS_USERS_TABLES
 
 	  See manual for details on the usage and syntax of these files.
 
+config BR2_ROOTFS_RESIZE
+	bool "Install rootfs_resize service"
+	select BR2_PACKAGE_ROOTFS_RESIZE
+
 config BR2_ROOTFS_OVERLAY
 	string "Root filesystem overlay directories"
 	default ""
