@@ -1,0 +1,7 @@
+#include "arm64_a35.config"
+#include "arm64_glibc.config"
+#include "base.config"
+#include "ubuntu.config"
+
+BR2_ROOTFS_POST_BUILD_SCRIPT="system/ubuntu/ubuntu-post-build.sh"
+BR2_ROOTFS_OVERLAY="system/ubuntu/target"
