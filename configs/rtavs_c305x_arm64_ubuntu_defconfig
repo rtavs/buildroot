@@ -1,7 +1,7 @@
 #include "c305x_arm64.config"
 #include "toolchain_glibc_arm64.config"
 #include "system.config"
-#include "ubuntu.config"
+#include "ubuntu_focal_arm64.config"
 
 BR2_ROOTFS_POST_BUILD_SCRIPT="system/ubuntu/ubuntu-post-build.sh"
 BR2_ROOTFS_OVERLAY="system/ubuntu/target"
