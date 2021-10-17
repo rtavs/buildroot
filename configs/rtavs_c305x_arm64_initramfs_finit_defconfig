@@ -2,4 +2,6 @@
 #include "toolchain_musl_arm64.config"
 #include "filesystem.config"
 #include "debug.config"
-BR2_INIT_FINIT=y
+# BR2_INIT_FINIT=y
+BR2_INIT_NONE=y
+BR2_PACKAGE_FINIT=y
