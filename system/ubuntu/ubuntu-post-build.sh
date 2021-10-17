@@ -23,15 +23,28 @@ arch_type()
 	fi
 }
 
-main()
-{
-	# $1 - the current rootfs directory, skeleton-custom or target
-	echo $@
-    echo arch=$(arch_type)
 
-	echo "built by $NAME on $HOST at $DATETIME" > $TARGET/timestamp
+echo $@
+echo arch=$(arch_type)
 
-	exit $?
-}
+echo "built by $NAME on $HOST at $DATETIME" > $TARGET/timestamp
 
-main $@
+#ln -srnf $TARGET/usr/share/zoneinfo/$(curl https://ipapi.co/timezone) $TARGET/etc/localtime
+
+
+cat << EOF | proot -0 -q /usr/bin/qemu-aarch64-static -b /dev -b /proc -b /sys -r $TARGET
+
+export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true LC_ALL=C LANGUAGE=C LANG=C
+
+#env
+
+apt -y update
+# apt -y upgrade
+# apt install -f -y --no-install-recommends apt-utils inetutils-ping vim git net-tools
+apt install -f -y --no-install-recommends systemd
+apt clean
+sync
+
+EOF
+
+exit $?
