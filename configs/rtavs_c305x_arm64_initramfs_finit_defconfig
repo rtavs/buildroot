@@ -1,0 +1,5 @@
+#include "c305x_arm64.config"
+#include "toolchain_musl_arm64.config"
+#include "filesystem.config"
+#include "debug.config"
+BR2_INIT_FINIT=y
