@@ -14,7 +14,7 @@ SKELETON_INIT_FINIT_TMPFILE := $(shell mktemp)
 SKELETON_INIT_FINIT_DEPENDENCIES = skeleton-init-common
 
 # Enable when BR2_INIT_FINT
-# SKELETON_INIT_FINIT_PROVIDES = skeleton
+SKELETON_INIT_FINIT_PROVIDES = skeleton
 
 # Prefer Finit built-in getty unless options are set, squash zero baudrate
 define SKELETON_INIT_FINIT_GETTY
