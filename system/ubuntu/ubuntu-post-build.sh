@@ -48,6 +48,9 @@ apt -y upgrade
 # minimally necessary, but whatever you do don't get rid of systemd-sysv otherwise the system won't boot
 apt install -f -y --no-install-recommends systemd systemd-sysv sysvinit-utils
 
+#apt-get -y install sudo udev rsyslog kmod util-linux sed language-pack-en netbase dnsutils ifupdown isc-dhcp-client isc-dhcp-common less vim net-tools iproute2 iputils-ping libnss-mdns iw software-properties-common ethtool dmsetup hostname iptables logrotate lsb-base lsb-release plymouth psmisc tar tcpd usbutils wireless-regdb wireless-tools wpasupplicant wget ftp nano curl rsync build-essential telnet parted patch bash-completion linux-firmware
+
+
 
 # Specify here if you'd like to use NetworkManager to configure network interfaces.
 # It is recommended to set this to yes for two reasons:
@@ -74,6 +77,12 @@ apt install -f -y --no-install-recommends systemd systemd-sysv sysvinit-utils
 # rm /usr/lib/NetworkManager/conf.d/10-globally-managed-devices.conf
 # touch /usr/lib/NetworkManager/conf.d/10-globally-managed-devices.conf
 
+
+# use ttyS0 for serial console
+rm -rf /etc/systemd/system/getty.target.wants/getty@ttyS0.service
+ln -s /lib/systemd/system/getty@.service /etc/systemd/system/getty.target.wants/getty@ttyS0.service
+
+echo "root:root" | chpasswd
 
 apt clean
 
