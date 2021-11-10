@@ -5,7 +5,7 @@ BUILDROOT=$(pwd)
 TARGET=$1
 NAME=$(whoami)
 HOST=$(hostname)
-DATETIME=`date +"%Y-%m-%d %H:%M:%S"`
+DATETIME=`date +"%Y-%m-%dT%H:%M:%S"`
 
 # install qemu-xxx-static
 # cp /etc/resolv.conf
@@ -27,7 +27,7 @@ arch_type()
 echo $@
 echo arch=$(arch_type)
 
-echo "built by $NAME on $HOST at $DATETIME" > $TARGET/timestamp
+echo "built $(git describe) by $NAME@$HOST at $DATETIME" > $TARGET/etc/build-id
 
 #ln -srnf $TARGET/usr/share/zoneinfo/$(curl https://ipapi.co/timezone) $TARGET/etc/localtime
 
