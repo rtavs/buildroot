@@ -2,10 +2,13 @@
 
 
 BUILDROOT=$(pwd)
+DIRNAME=`dirname $0`
 TARGET=$1
 NAME=$(whoami)
 HOST=$(hostname)
 DATETIME=`date +"%Y-%m-%dT%H:%M:%S"`
+
+
 
 # install qemu-xxx-static
 # cp /etc/resolv.conf
@@ -25,6 +28,8 @@ arch_type()
 
 
 echo $@
+echo $BUILDROOT
+echo $DIRNAME
 echo arch=$(arch_type)
 
 echo "built $(git describe) by $NAME@$HOST at $DATETIME" > $TARGET/etc/build-id
@@ -32,24 +37,56 @@ echo "built $(git describe) by $NAME@$HOST at $DATETIME" > $TARGET/etc/build-id
 #ln -srnf $TARGET/usr/share/zoneinfo/$(curl https://ipapi.co/timezone) $TARGET/etc/localtime
 
 
-cat << EOF | proot -0 -q /usr/bin/qemu-aarch64-static -b /dev -b /proc -b /sys -r $TARGET
+proot_run="proot \
+	--qemu=/usr/bin/qemu-aarch64-static \
+	--root-id \
+	--link2symlink \
+	--kill-on-exit \
+	--pwd=/root \
+	--bind=/dev \
+	--bind="/dev/urandom:/dev/random" \
+	--bind="/dev/null:/dev/null" \
+	--bind=/sys \
+	--bind=/proc \
+	--bind="/proc/self/fd:/dev/fd" \
+	--bind="/proc/self/fd/1:/dev/stdout" \
+	--bind="/proc/self/fd/2:/dev/stderr" \
+	--bind="$DIRNAME/hooks:/root/hooks" \
+	--rootfs=$TARGET"
 
-export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true LC_ALL=C LANGUAGE=C LANG=C
 
-#env
+proot_cmd="proot -0 -q /usr/bin/qemu-aarch64-static -b /dev -b /proc -b /sys --pwd=/root -r $TARGET"
+
+echo proot_cmd=$proot_cmd
+
+cat << EOF | $proot_cmd
+
+export HOME=/root
+#export LANG=C.UTF-8
+export LC_ALL=C LANGUAGE=C LANG=C
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+export DEBIAN_FRONTEND=noninteractive
+export DEBCONF_NONINTERACTIVE_SEEN=true
 
 apt -y update
 
-# Install the dialog package and others first to squelch some warnings
-apt-get -y install dialog apt-utils
+echo "I: Install the dialog package and others first to squelch some warnings"
+apt-get install -y dialog apt-utils
 apt -y upgrade
 
+
 # There are probably more packages in the following list than what is absolutely
-# minimally necessary, but whatever you do don't get rid of systemd-sysv otherwise the system won't boot
+# minimally necessary, but whatever you do don't get rid of systemd-sysv
+# otherwise the system won't boot
+
+echo "I: install systemd"
 apt install -f -y --no-install-recommends systemd systemd-sysv sysvinit-utils
 
-#apt-get -y install sudo udev rsyslog kmod util-linux sed language-pack-en netbase dnsutils ifupdown isc-dhcp-client isc-dhcp-common less vim net-tools iproute2 iputils-ping libnss-mdns iw software-properties-common ethtool dmsetup hostname iptables logrotate lsb-base lsb-release plymouth psmisc tar tcpd usbutils wireless-regdb wireless-tools wpasupplicant wget ftp nano curl rsync build-essential telnet parted patch bash-completion linux-firmware
-
+echo "I: install system base tools"
+apt install -f -y --no-install-recommends \
+	sudo udev rsyslog kmod vim-tiny \
+	bash-completion
 
 
 # Specify here if you'd like to use NetworkManager to configure network interfaces.
@@ -63,14 +100,12 @@ apt install -f -y --no-install-recommends systemd systemd-sysv sysvinit-utils
 # Replace MyWifiName and MyWifiPassword with your wifi network credentials.
 # However, if you still prefer to use /etc/network/interfaces to configure your networking, then comment out this line.
 
-#apt install -f -y --no-install-recommends network-manager resolvconf
+echo "I: install network-manager"
+apt install -f -y --no-install-recommends network-manager resolvconf
 
-#apt install -f -y --no-install-recommends inetutils-ping vim git net-tools
+#apt install -f -y --no-install-recommends inetutils-ping git net-tools
+#netbase dnsutils ifupdown isc-dhcp-client isc-dhcp-common less net-tools iproute2 iputils-ping libnss-mdns iw software-properties-common ethtool dmsetup hostname iptables logrotate lsb-base lsb-release plymouth psmisc tar tcpd usbutils wireless-regdb wireless-tools wpasupplicant ftp nano curl rsync build-essential telnet parted patch bash-completion linux-firmware
 
-# User account setup
-# useradd -s /bin/bash -G adm,sudo -m ${RPIUSER}
-# Setting the password requires user input
-# passwd ${RPIUSER}
 
 # if use NetworkManager
 # Workaround for https://bugs.launchpad.net/ubuntu/+source/network-manager/+bug/1638842
@@ -82,12 +117,15 @@ apt install -f -y --no-install-recommends systemd systemd-sysv sysvinit-utils
 rm -rf /etc/systemd/system/getty.target.wants/getty@ttyS0.service
 ln -s /lib/systemd/system/getty@.service /etc/systemd/system/getty.target.wants/getty@ttyS0.service
 
-echo "root:root" | chpasswd
-
 apt clean
 
 sync
 
 EOF
+
+for f in $DIRNAME/hooks/*.chroot; do
+	echo "File -> $f"
+	$proot_run /root/hooks/`basename $f`
+done
 
 exit $?
