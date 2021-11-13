@@ -40,7 +40,6 @@ echo "built $(git describe) by $NAME@$HOST at $DATETIME" > $TARGET/etc/build-id
 proot_run="proot \
 	--qemu=/usr/bin/qemu-aarch64-static \
 	--root-id \
-	--link2symlink \
 	--kill-on-exit \
 	--pwd=/root \
 	--bind=/dev \
