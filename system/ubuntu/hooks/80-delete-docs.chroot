@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# We do not need any documentation on the system. This frees 43MB.
+echo "I: Remove unused Documentation"
+rm -rf /usr/share/doc /usr/share/doc-base /usr/share/docutils
+
+# We do not need any man documentation on the system. This frees 43MB.
+echo "I: Remove unused Manual"
+rm -rf /usr/share/man /usr/share/man-db
+
+
+echo "I: Remove apt cache"
+rm -rf /var/cache/apt/*.bin
+rm -rf /var/cache/apt/archives/*.deb
