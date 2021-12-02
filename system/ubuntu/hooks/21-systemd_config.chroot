@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Make systemd less spammy
+
+sed -i 's/#LogLevel=info/LogLevel=warning/' \
+  /etc/systemd/system.conf
+
+sed -i 's/#LogTarget=journal-or-kmsg/LogTarget=journal/' \
+  /etc/systemd/system.conf
+
+
+sed -i 's/#DefaultTimeoutStartSec=90s/DefaultTimeoutStartSec=3s/' \
+  /etc/systemd/system.conf
+
+
+sed -i 's/#DefaultTimeoutStopSec=90s/DefaultTimeoutStopSec=3s/' \
+  /etc/systemd/system.conf

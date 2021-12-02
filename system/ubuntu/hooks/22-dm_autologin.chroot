@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Enable lightdm-autologin-greeter for default ubuntu user
+if [ -e /etc/lightdm/lightdm.conf.d/lightdm-autologin-greeter.conf ]; then
+  sed -i "s|^autologin-user=.*|autologin-user=ubuntu|" /etc/lightdm/lightdm.conf.d/lightdm-autologin-greeter.conf
+fi
+
+# Enable sddm autologin for default user and configure theme
+if [ -e /usr/bin/sddm ]; then
+  /usr/bin/sddm --example-config > /etc/sddm.conf
+  sed -i "s|^Session=.*|Session=lxqt.desktop|" /etc/sddm.conf
+  sed -i "s|^User=.*|User=linaro|" /etc/sddm.conf
+  sed -i "s|^Current=.*|Current=breeze|" /etc/sddm.conf
+  sed -i "s|^CursorTheme==.*|CursorTheme=breeze_cursors|" /etc/sddm.conf
+fi
