@@ -1,0 +1,24 @@
+#!/bin/sh
+
+export LC_ALL=C LANGUAGE=C LANG=C
+
+DEFUSER="ubuntu"
+
+DEFGROUPS="adm,dialout,cdrom,audio,dip,video,plugdev,bluetooth,pulse-access,sudo,systemd-journal,netdev,staff"
+
+IFS=','
+for group in $DEFGROUPS; do
+	/bin/egrep  -i "^$group" /etc/group > /dev/null
+	if [ $? -eq 0 ]; then
+	   echo "Group '$group' exists in /etc/group"
+	else
+	   echo "Group '$group' does not exists in /etc/group, creating"
+	   groupadd $group
+	fi
+done
+unset IFS
+
+echo "I: add $DEFUSER to $DEFGROUPS groups"
+usermod -a -G $DEFGROUPS $DEFUSER
+
+####################################################################

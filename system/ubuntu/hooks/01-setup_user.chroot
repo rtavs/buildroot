@@ -1,0 +1,30 @@
+#!/bin/sh
+
+
+export LC_ALL=C LANGUAGE=C LANG=C
+
+####################################################################
+
+echo "I: set root user password"
+echo "root:root" | chpasswd
+
+####################################################################
+
+
+DEFUSER="ubuntu"
+
+/bin/egrep  -i "^$DEFUSER" /etc/passwd > /dev/null
+if [ $? -eq 0 ]; then
+    echo "user 'ubuntu' exists in /etc/passwd"
+else
+    echo "I: create user $DEFUSER"
+    adduser --gecos $DEFUSER --disabled-login $DEFUSER
+
+    echo "I: set user password"
+    echo "$DEFUSER:$DEFUSER" | chpasswd
+fi
+
+####################################################################
+
+
+
