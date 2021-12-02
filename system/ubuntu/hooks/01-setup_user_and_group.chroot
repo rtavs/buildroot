@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh
 
 
 export LC_ALL=C LANGUAGE=C LANG=C

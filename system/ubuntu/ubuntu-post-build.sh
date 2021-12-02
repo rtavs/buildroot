@@ -53,12 +53,9 @@ proot_run="proot \
 	--bind="$DIRNAME/hooks:/root/hooks" \
 	--rootfs=$TARGET"
 
+echo proot_run=$proot_run
 
-proot_cmd="proot -0 -q /usr/bin/qemu-aarch64-static -b /dev -b /proc -b /sys --pwd=/root -r $TARGET"
-
-echo proot_cmd=$proot_cmd
-
-cat << EOF | $proot_cmd
+cat << EOF | $proot_run
 
 export HOME=/root
 #export LANG=C.UTF-8
